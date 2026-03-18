@@ -4,10 +4,10 @@
     <Hot v-else />
     <Contents>
       <template v-slot:top>
-        <Creamer :selectedCreamer="selectedCreamer" />
+        <Creamer v-if="selectedCreamer !== noCreamerId" :selectedCreamer="selectedCreamer" />
       </template>
       <template v-slot:mid>
-        <Syrup :selectedSyrup="selectedSyrup" />
+        <Syrup v-if="selectedSyrup !== noSyrupId" :selectedSyrup="selectedSyrup" />
       </template>
       <template v-slot:bottom>
         <Base :selectedBase="selectedBase" />
@@ -15,7 +15,10 @@
     </Contents>
   </Mug>
 </template>
+
+
 <script setup lang="ts">
+import { computed } from "vue";
 import Contents from "./Contents.vue";
 import Mug from "./Mug.vue";
 import Syrup from "./Syrup.vue";
@@ -23,6 +26,7 @@ import Base from "./Base.vue";
 import Creamer from "./Creamer.vue";
 import Hot from "./Hot.vue";
 import Cold from "./Cold.vue";
+import { creamers, syrups } from "../stores/beverage";
 
 type Props = {
   isIced: boolean;
@@ -31,4 +35,7 @@ type Props = {
   selectedBase: string;
 };
 defineProps<Props>();
+
+const noCreamerId = computed(() => creamers.value.find((c) => c.name === "No Cream")?.id ?? "c1");
+const noSyrupId = computed(() => syrups.value.find((s) => s.name === "No Syrup")?.id ?? "s1");
 </script>
