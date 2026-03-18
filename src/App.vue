@@ -1,6 +1,10 @@
 <template>
   <div>
-    <Beverage :isIced="currentTemp === 'Cold'" />
+    <Beverage 
+      :isIced="currentTemp === 'Cold'" 
+      :selectedSyrup="selectedSyrup"  
+      :selectedCreamer="selectedCreamer" 
+      :selectedBase="selectedBase" />
     <ul>
       <li>
 
@@ -68,12 +72,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
+import { ref } from "vue";
 import Beverage from "./components/Beverage.vue";
 import { temps, bases, creamers, syrups, currentTemp } from "./stores/beverage";
-const selectedBase = ref(bases.value[0].id);
-const selectedCreamer = ref(creamers.value[0].id);
-const selectedSyrup = ref(syrups.value[0].id);
+
+const selectedBase = ref(bases.value[1].id);
+const selectedCreamer = ref(creamers.value[1].id);
+const selectedSyrup = ref(syrups.value[1].id);
 </script>
 
 <style lang="scss">
